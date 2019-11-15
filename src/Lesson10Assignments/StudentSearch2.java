@@ -54,7 +54,7 @@ public class StudentSearch2 extends javax.swing.JFrame {
         clearbtn = new javax.swing.JButton();
         txtid = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        display = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,10 +67,15 @@ public class StudentSearch2 extends javax.swing.JFrame {
         });
 
         clearbtn.setText("Clear");
+        clearbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtnActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        display.setColumns(20);
+        display.setRows(5);
+        jScrollPane1.setViewportView(display);
 
         jLabel1.setText("Enter Student ID");
 
@@ -115,10 +120,46 @@ public class StudentSearch2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public static int search(Object[] a, Object searchValue) {
+        int attempts = 0;
+        int left = 0;
+        int right = a.length - 1;
+        while (left <= right) {
+            int midpoint = (left + right) / 2;
+            int result = ((Comparable) a[midpoint]).compareTo(searchValue);
+            attempts++;
+            if (result == 0) {
+                System.out.println("binary took "+attempts+" attempt to return");
+                return midpoint;
+            } else if (result < 0) {
+                left = midpoint + 1;
+            } else {
+                right = midpoint - 1;
+            }
+        }
+        System.out.println("binra ytook "+attempts+" attempt to return");
+        return -1;
+        
+
+    }
+    
     private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
         // TODO add your handling code here:'
+        int id = Integer.parseInt(txtid.getText());
+        ISSStudent temp = new ISSStudent(null,null,id);
         
+        int result = search(iss,temp);
+        if (result>=0)
+            display.setText(iss[result].toString());
+        else //-1
+            display.setText("Student not found");
     }//GEN-LAST:event_searchbtnActionPerformed
+
+    private void clearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtnActionPerformed
+        // TODO add your handling code here:
+        display.setText("");
+    }//GEN-LAST:event_clearbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,9 +198,9 @@ public class StudentSearch2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clearbtn;
+    private javax.swing.JTextArea display;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton searchbtn;
     private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables

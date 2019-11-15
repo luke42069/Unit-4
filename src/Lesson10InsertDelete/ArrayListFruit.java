@@ -119,6 +119,7 @@ public class ArrayListFruit extends javax.swing.JFrame {
     private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
         String newfruit = JOptionPane.showInputDialog(this,"New Frruit","Enter Fruit");
         int loc = findInsertPoint(fruits,newfruit);
+        
         // add to arraylist
         fruits.add(loc, newfruit);
         //update the list model
